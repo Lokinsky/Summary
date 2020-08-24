@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
+html{
+    scrollbar-color: transparent transparent;
+}
+body{
+    border: none;
+    margin: 0px 0px 0px 0px;
+    
+}
+
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+@-moz-document url-prefix() { /* Disable scrollbar Firefox */
+    html{
+      scrollbar-width: none;
+    }
+  }

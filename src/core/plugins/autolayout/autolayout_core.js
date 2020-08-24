@@ -49,7 +49,7 @@ class Plugin{
             "background-color": "red",
             "display": "flex",
             "flex-direction": "row",
-            "font-weight": "bolder"
+            "font-weight": "bolder",
         })
         await self.layout['block'].forEach(block => {
 
@@ -65,7 +65,8 @@ class Plugin{
                         "max-width":block.items.width!=null?block.items.width+"px":';',
                         "min-width":block.items['min-width']!=null?block.items['min-width']+"px":';',
                         "max-height":block.items.height!=null?block.items.height+"px":';',
-                        "width":"100%",
+                        "width":block.items['width-size']!=null?block.items['width-size']:";",
+                        "padding":"0px 15px"
                     })
                 }
             else
@@ -75,7 +76,8 @@ class Plugin{
                         "max-width":item.width!=null?item.width+"px":';',
                         "min-width":item['min-width']!=null?item['min-width']+"px":';',
                         "max-height":item.height!=null?item.height+"px":';',
-                        "width":"100%",
+                        "width":item['width-size']!=null?item['width-size']:';',
+                        "padding":"0px 15px"
                     })
 
                 })

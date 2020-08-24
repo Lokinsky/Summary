@@ -272,13 +272,17 @@ h5{
     padding: 0px 0px 0px 2vw;
 
 }
-.personal{
+/*.personal{
     margin: 0px 30px 0px 0px;
 }
 
 .work-history{
     margin: 0px 30px 0px 0px;
 }
+.about{
+    margin: 0px 24px 0px 0px;
+}*/
+
 .row-3{
     justify-content: center;
 }
@@ -291,10 +295,8 @@ h5{
 }
 .head-line{
     border-bottom: 4px solid #5B5B5B;
-    padding: 0px 0px 1vh 5vw;
-    margin: 0px 2vw;
-    max-width: 150px;
-    width: 8vw;
+    margin: 1vh 1vw;
+    width: 10vw;
 }
 .conatcts{
     display: flex;
@@ -323,17 +325,16 @@ p{
     display: flex;
     flex-direction: row;
 }
-.about{
-    margin: 0px 24px 0px 0px;
-}
 .sort-blocks-button{
-    
-    padding: 0px;
+    padding: 0px 15px;
     margin: 0px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12pt;
 }
 .sort-blocks-button>p{
     display: flex;
     flex-direction: row;
+    
 }
 .sort-blocks-button>p>span{
     margin: 0px 1vw;

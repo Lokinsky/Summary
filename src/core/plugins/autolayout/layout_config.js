@@ -16,7 +16,7 @@ new Object({
                 },
                 {
                     "id":"item-row-2",
-                    "width":"375",
+                    "width":"345",
                     //"height":"700",
                 },
                 {
@@ -35,7 +35,8 @@ new Object({
             "items":[
                 {
                     "id":"item-row-1",
-                    "width":"710",
+                    "width":"680",
+                    "width-size":"100vw"
                     //"height":"358",
                 },
                 {
@@ -58,7 +59,7 @@ new Object({
                 {
                     "id":"item-row-2",
                     //"width":"130",
-                    "height":"30",
+                    //"height":"30",
                 },
                 {
                     "id":"item-row-3",
@@ -78,8 +79,8 @@ new Object({
             "items":
             {
                 "id":"item-row",
-                //"width":"314",
-                "min-width":"315",
+                "width-size":"100%",
+                //"min-width":"315",
                 //"height":"228",
             }
         },

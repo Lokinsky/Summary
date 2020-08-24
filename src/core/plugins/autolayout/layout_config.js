@@ -11,18 +11,18 @@ new Object({
             "items":[
                 {
                     "id":"item-row-1",
-                    "width":"307",
-                    "height":"215",
+                    "width":"300",
+                    //"height":"700",
                 },
                 {
                     "id":"item-row-2",
                     "width":"375",
-                    "height":"292",
+                    //"height":"700",
                 },
                 {
                     "id":"item-row-3",
                     "width":"345",
-                    "height":"204",
+                    //"height":"700",
                 },
             ],
        },
@@ -35,13 +35,13 @@ new Object({
             "items":[
                 {
                     "id":"item-row-1",
-                    "width":"355",
-                    "height":"358",
+                    "width":"710",
+                    //"height":"358",
                 },
                 {
                     "id":"item-row-2",
-                    "width":"120",
-                    "height":"188",
+                    "width":"515",
+                    //"height":"188",
                 },
             ],
         },
@@ -57,7 +57,7 @@ new Object({
                 },
                 {
                     "id":"item-row-2",
-                    "width":"130",
+                    //"width":"130",
                     "height":"30",
                 },
                 {
@@ -78,8 +78,9 @@ new Object({
             "items":
             {
                 "id":"item-row",
-                "width":"314",
-                "height":"228",
+                //"width":"314",
+                "min-width":"315",
+                //"height":"228",
             }
         },
     ],

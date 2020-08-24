@@ -52,7 +52,7 @@ class Plugin{
             "font-weight": "bolder"
         })
         await self.layout['block'].forEach(block => {
-            //console.log(block)
+
             self.observer.stop_observe();
             $("#"+block.id).css({
                 "display": block.display,
@@ -62,18 +62,20 @@ class Plugin{
                 for (let i = 0; i < block['item-repeat']; i++) {
 
                     $("#"+block.id).find("#"+block.items.id+"-"+(i+1)).css({
-                        "min-width":block.items.width+"px",
-                        "min-height":block.items.height+"px",
-                        "width":";",
+                        "max-width":block.items.width!=null?block.items.width+"px":';',
+                        "min-width":block.items['min-width']!=null?block.items['min-width']+"px":';',
+                        "max-height":block.items.height!=null?block.items.height+"px":';',
+                        //"width":"100%",
                     })
                 }
             else
                 block["items"].forEach(item => {
 
                     $("#"+block.id).find("#"+item.id).css({
-                        "min-width":item.width+"px",
-                        "min-height":item.height+"px",
-                        "width":";",
+                        "max-width":item.width!=null?item.width+"px":';',
+                        "min-width":item['min-width']!=null?item['min-width']+"px":';',
+                        "max-height":item.height!=null?item.height+"px":';',
+                        //"width":"100%",
                     })
 
                 })
@@ -126,7 +128,7 @@ class Plugin{
                         $("#"+block.id).find("#"+div.id).replaceWith(div)
                         $("#"+block.id).append($("#"+block.id).find("#"+div.id))
                     }
-                    //console.log(div)
+                    
                 })
             }
             self.observer.start_observe();

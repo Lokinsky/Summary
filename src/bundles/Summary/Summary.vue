@@ -178,6 +178,7 @@ export default {
                     "refs":[
                             {"site":"github.com/web client","ref":"https://github.com/Lokinsky/web-client"},
                             {"site":"Lokinsky.github.io","ref":"/#/summary"},
+                            {"site":"github/summary","ref":"https://github.com/Lokinsky/Summary.git"},
                             ] 
 
                 },
@@ -290,7 +291,8 @@ h5{
 }
 .head-line{
     border-bottom: 4px solid #5B5B5B;
-    margin: 0px 1vw 35px;
+    padding: 0px 0px 1vh 5vw;
+    margin: 0px 2vw;
     max-width: 150px;
     width: 8vw;
 }

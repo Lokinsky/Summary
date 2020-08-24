@@ -65,7 +65,7 @@ class Plugin{
                         "max-width":block.items.width!=null?block.items.width+"px":';',
                         "min-width":block.items['min-width']!=null?block.items['min-width']+"px":';',
                         "max-height":block.items.height!=null?block.items.height+"px":';',
-                        //"width":"100%",
+                        "width":"100%",
                     })
                 }
             else
@@ -75,7 +75,7 @@ class Plugin{
                         "max-width":item.width!=null?item.width+"px":';',
                         "min-width":item['min-width']!=null?item['min-width']+"px":';',
                         "max-height":item.height!=null?item.height+"px":';',
-                        //"width":"100%",
+                        "width":"100%",
                     })
 
                 })
@@ -128,7 +128,7 @@ class Plugin{
                         $("#"+block.id).find("#"+div.id).replaceWith(div)
                         $("#"+block.id).append($("#"+block.id).find("#"+div.id))
                     }
-                    
+
                 })
             }
             self.observer.start_observe();

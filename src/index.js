@@ -1,7 +1,10 @@
+require('intersection-observer');
 import Vue from "vue"
 import VueRouter from 'vue-router'
 //import Core from './core/Core.js'
 import core from './core/Vue_adapter_core.js'
+import { ObserveVisibility } from 'vue-observe-visibility'
+
 import './css/style.css'
 //import component from './component.vue'
 
@@ -10,7 +13,8 @@ import App from './App.vue'
 //import component from "./components/component.vue" 
 import summary_bundle from "./bundles/Summary/Summary.vue" 
 import ProjectItem from "./bundles/Summary/components/Project.vue" 
-
+ 
+Vue.directive('observe-visibility', ObserveVisibility)
 Vue.use(VueRouter)
 Vue.use(core)
 //Vue.prototype.$core = new Core();

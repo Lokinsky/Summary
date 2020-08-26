@@ -1,10 +1,10 @@
 <template>
     <div class="summary-component">
-        
         <div id="container" class="block-container">
+             
             <router-link to="/"><h5>Назад</h5></router-link>
             <div class="row-1" id="row-block-1">
-                <div id="item-row-1" class="personal nunito">
+                <div id="item-row-1" class="personal nunito" link="#personal_info">
                     <h3>Персональные данные</h3>
                     <div>
                         <p>
@@ -48,7 +48,7 @@
                 </div>
             </div>
             
-            <div class="row-2" id="row-block-2">
+            <div class="row-2" id="row-block-2" link="#about">
                 <div id="item-row-1" class="about">
                     <h3>О себе</h3>
                     <p class="nunito">
@@ -92,7 +92,7 @@
                     
                 </div>
             </div>
-            <div class="row-3" id="row-block-3">
+            <div class="row-3" id="row-block-3" link="#portfolio">
                 <div id="item-row-1" class="head-line">
                     
                 </div>
@@ -102,7 +102,16 @@
                 <div id="item-row-3" class="head-line">
                 </div>
             </div>
-            <div class="row-4 com" id="row-block-4">
+            
+            <div class="row-4 project_list com" id="row-block-4"  
+            v-observe-visibility="{
+                            callback:appeared,
+                            throttle,
+                            intersection: {
+                              threshold,
+                            },
+                        }"
+            >
                 <div class="sort-blocks-button">
                     <p class="view-block" v-on:click="view_block('row-block-4')">
                         <a>Режим отображения</a>
@@ -116,21 +125,23 @@
                     </p>
                     
                 </div>
+                
                 <transition-group name="fade">
-                <template v-if="this.get_projects.length>0">
                     <template  v-for="(project,index) in this.get_projects">
                         <ProjectItem class="nunito" :key="index" :title="project.title" :description="project.description" :refs="project.refs" :index="index+1" />
                     </template>
-                </template>
                  </transition-group>
-                <template v-if="this.get_projects.length==0">
-                    <div class="loading">
-                        <div class="circle"></div>
-                        <div class="circle"></div>
-                        <div class="circle"></div>
-                    </div>
-                </template>
+                    <transition name="fade">
+                        <div class="loading">
+                            <template v-if="this.get_projects.length==0&&project_list_loading">
+                                <div class="circle"></div>
+                                <div class="circle"></div>
+                                <div class="circle"></div>
+                            </template>
+                        </div>
+                    </transition>
             </div>
+             
         </div>
 
     </div>
@@ -150,18 +161,28 @@ export default {
         return{
             view_number:0,
             view_order:"desc",
+            project_list:false,
+            project_list_loading:false,
+            throttle: 0,
+            threshold:0
+            
             
         }
     },
     props:[],
     created(){
         this._init_firebase()
-        console.log(this.get_projects)
+        
         
     },
     computed:Vuex.mapGetters(['get_projects']),
     methods:{
         ...Vuex.mapActions(['_init_firebase','fetch_projects']),
+        appeared:function(isVisible, entry){
+            this.$data[entry.target.classList[1]] = isVisible
+            this.$data[entry.target.classList[1]+"_loading"] = isVisible            
+            setTimeout(this.fetch_projects,2000)
+        },
         async view_block(element){
             await this.$core().put('autolayout',{'id':element,'flex-group':this.view_number, 'order':this.view_order}, (layout,data)=>{
                 for (let i = 0; i < layout['block'].length; i++) {
@@ -181,7 +202,6 @@ export default {
 
     },
     mounted(){
-        this.fetch_projects();
     },
     updated(){
     }
@@ -192,7 +212,9 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+/**pretty showing */
 
+/** end */
 
 /**loading */
 .fade-enter-active, .fade-leave-active {
@@ -231,24 +253,24 @@ loading{
 .loading div:nth-of-type(3) {
     height: 10px;
     width: 10px;
-    margin-top: -5px;
-    margin-left: -5px;
+    margin-top: -20px;
+    margin-left: 0px;
     -webkit-animation: slide 3s ease-in-out infinite;
     animation: slide 3s ease-in-out infinite;
 }
 .loading div:nth-of-type(2) {
     height: 20px;
     width: 20px;
-    margin-top: -12px;
-    margin-left: -12px;
+    margin-top: -30px;
+    margin-left: 0px;
     -webkit-animation: slide 3s -2.7s ease-in-out infinite;
     animation: slide 3s -2.7s ease-in-out infinite;
 }
 .loading div:nth-of-type(1) {
     height: 40px;
     width: 40px;
-    margin-top: -20px;
-    margin-left: -20px;
+    margin-top: 0px;
+    margin-left: 0px;
     -webkit-animation: slide 3s -2.4s ease-in-out infinite;
     animation: slide 3s -2.4s ease-in-out infinite;
 }

@@ -60,7 +60,7 @@
                         <span>Музыкой я начал заниматься ещё в детстве, но с тех пор был большой перерыв и теперь снова встал на этот путь. Также я занимаюсь программированием: тут я разрабатываю свои pet-проекты и улучшаю навыки.</span>
                         <span>Я считаю что созидать — это одно из важных условий жизни. 
                         Не менее важным является и саморазвитие, чем я тоже не пренебрегаю. Поэтому я не забываю заниматься спортом (ведь я в прошлом легкоатлет), читать и обучаться новым навыкам.</span>
-                        <span>В портфолио приложены проекты, которые находятся в разработке или находятся на завершающих этапах.</span>
+                        <span>В портфолио приложены проекты, которые находятся в разработке или на завершающих этапах.</span>
                     </p>
                 </div>
                 <div id="item-row-2" >
@@ -116,9 +116,19 @@
                     </p>
                     
                 </div>
-
-                <template v-for="(project,index) in this.projects">
-                    <ProjectItem class="nunito" :key="index" :title="project.title" :description="project.description" :refs="project.refs" :index="index+1" />
+                <transition-group name="fade">
+                <template v-if="this.get_projects.length>0">
+                    <template  v-for="(project,index) in this.get_projects">
+                        <ProjectItem class="nunito" :key="index" :title="project.title" :description="project.description" :refs="project.refs" :index="index+1" />
+                    </template>
+                </template>
+                 </transition-group>
+                <template v-if="this.get_projects.length==0">
+                    <div class="loading">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                    </div>
                 </template>
             </div>
         </div>
@@ -130,67 +140,28 @@
 <script>
 
 import Vue from 'vue';
-
+import Vuex from 'vuex';
+import store from './store/store.js';
+Vue.use(Vuex)
 
 export default {
+    store,
     data(){
         return{
             view_number:0,
             view_order:"desc",
-            projects:[
-                {
-                    "title":"C-sharp-patterns",
-                    "description":`
-                    В этом проекте я учился работать с ООП, а также применять шаблоны проектирования.
-                    `,
-                    "refs":[{"site":"github.com/c# OOP","ref":"https://github.com/Lokinsky/C_sharp_patterns"}]
-                },
-                {
-                    "title":"Mine-Plugin-Craft",
-                    "description":`
-                    Ну из названия можно понять, что это разрабатывалось исключительно для игры, а если конкретнее – Minecraft. 
-                    В нем я хотел собрать: авторизацию, привилегии, глобальные правила по доступу к игровому миру, а пока там есть только авторизация.
-                    `,
-                    "refs":[{"site":"github.com/minecraft plugin","ref":"https://github.com/Lokinsky/mine_plugin_craft"}]},
-                {
-                    "title":"Tcp-Udp-Server",
-                    "description":`
-                    TCP-сервер и UDP-сервер, которые предназначались для создания voice-chat приложения. 
-                    Особенности TCP-сервера: авторизации через веб-токен (JWT), управление привилегиями, защищенный обмен данными.
-                    Внутри данного проекта присутствует клиент, написанный также на языке C#.
-                    
-                    Проект заморожен.
-                    `,  
-                    "refs":[{"site":"github.com/tcp server","ref":"https://github.com/Lokinsky/Tcp-Udp-Server"}]},
-                {
-                    "title":"Веб-клиент",
-                    "description":`
-                        Проект ореинтирован на веб-технологии. 
-                        Стек: Javascript, CSS, jQuery, vue.js. 
-                        В этом проекте реализован standalone-core, который был написан мной.
-                        Это ядро включает в себя: управление плагинами, а также подключение любых других, которые можно написать самому. 
-                        Для данного ядра был разработан адаптер для vue.js – Vue_adapter_core.js.
-                        Также в него входит и шина данных – bus.js, с помощью которой можно обмениваться данными между плагинами, а также производить запрос к плагину из приложения.
-                        autolayout_core.js – плагин, который позволяет упростить верстку за счет описанных функций группировок.
-                        animation_core.js – плагин, инкапуслирующий в себя все функции, которые работают с любой анимацией – в данный момент находится в разработке.
-                        `,
-                    "refs":[
-                            {"site":"github.com/web client","ref":"https://github.com/Lokinsky/web-client"},
-                            {"site":"Lokinsky.github.io","ref":"/#/summary"},
-                            {"site":"github/summary","ref":"https://github.com/Lokinsky/Summary.git"},
-                            ] 
-
-                },
-            ]
+            
         }
     },
     props:[],
     created(){
-
+        this._init_firebase()
+        console.log(this.get_projects)
         
     },
-    computed:{},
+    computed:Vuex.mapGetters(['get_projects']),
     methods:{
+        ...Vuex.mapActions(['_init_firebase','fetch_projects']),
         async view_block(element){
             await this.$core().put('autolayout',{'id':element,'flex-group':this.view_number, 'order':this.view_order}, (layout,data)=>{
                 for (let i = 0; i < layout['block'].length; i++) {
@@ -210,6 +181,7 @@ export default {
 
     },
     mounted(){
+        this.fetch_projects();
     },
     updated(){
     }
@@ -220,6 +192,95 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+
+
+/**loading */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
+loading{
+    display: flex;
+    flex-direction: row;
+    padding:20px;
+    justify-content: center;
+}
+/*.circle{
+    border: 4px black solid;
+    border-radius: 100px;
+    margin: 10px;
+    width:16px;
+    height: 16px;
+    opacity: 0;
+}*/
+.loading div {
+    border-radius: 50%;
+    position: relative;
+
+    width: 100%;
+}
+.loading div:nth-of-type(odd) {
+    background: black;
+}
+.loading div:nth-of-type(even) {
+    background: white;
+    border: 2px solid black;
+}
+.loading div:nth-of-type(3) {
+    height: 10px;
+    width: 10px;
+    margin-top: -5px;
+    margin-left: -5px;
+    -webkit-animation: slide 3s ease-in-out infinite;
+    animation: slide 3s ease-in-out infinite;
+}
+.loading div:nth-of-type(2) {
+    height: 20px;
+    width: 20px;
+    margin-top: -12px;
+    margin-left: -12px;
+    -webkit-animation: slide 3s -2.7s ease-in-out infinite;
+    animation: slide 3s -2.7s ease-in-out infinite;
+}
+.loading div:nth-of-type(1) {
+    height: 40px;
+    width: 40px;
+    margin-top: -20px;
+    margin-left: -20px;
+    -webkit-animation: slide 3s -2.4s ease-in-out infinite;
+    animation: slide 3s -2.4s ease-in-out infinite;
+}
+@keyframes slide {
+    0% {
+        left: 75%
+    }
+    50% {
+        left: 25%;
+    }
+    100% {
+        left: 75%;
+    }
+}
+@-webkit-keyframes slide {
+    0% {
+        left: 75%
+    }
+    50% {
+        left: 25%;
+    }
+    100% {
+        left: 75%;
+    }
+}
+
+
+/**end loading */
+
+
+
+
 
 .group-sort{
     margin: 0px 0px 20px 0px;

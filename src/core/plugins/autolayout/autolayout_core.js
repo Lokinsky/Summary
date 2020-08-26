@@ -98,20 +98,21 @@ class Plugin{
                         element.style.cssText = "display:flex;flex-direction:row;"; 
                     if($("#"+block.id)[0]!=null)
                         for (let j = 0; j < block["flex-group"]; j++) {
-                            if(block['item-repeat']!=null&&pointer<length&&$("#"+block.id).find("#"+block.items.id+'-'+(pointer+1))[0]!=null){
-                                if(block["order"]=="desc")
-                                    element.prepend($("#"+block.id).find("#"+block.items.id+'-'+(pointer+1))[0])
-                                else
-                                    element.appendChild($("#"+block.id).find("#"+block.items.id+'-'+(pointer+1))[0])
-                                    
+                            if(block['item-repeat']!=null&&pointer<length&&$("#"+block.id).find("#"+block.items.id+'-'+(pointer+1))!=undefined){
+                                if($("#"+block.id).find("#"+block.items.id+'-'+(pointer+1))[0]!=undefined)
+                                    if(block["order"]=="desc")
+                                        element.prepend($("#"+block.id).find("#"+block.items.id+'-'+(pointer+1))[0])
+                                    else
+                                        element.appendChild($("#"+block.id).find("#"+block.items.id+'-'+(pointer+1))[0])
                                 pointer += 1
                             }
-                            else if(pointer<length&&$("#"+block.id).find("#"+block.items[pointer].id)[0]!=undefined){
-                                if(block["order"]=="desc")
-                                    element.prepend($("#"+block.id).find("#"+block.items[pointer].id)[0])
-                                else
-                                    element.appendChild($("#"+block.id).find("#"+block.items[pointer].id)[0])
-                                
+                            else if(pointer<length&&$("#"+block.id).find("#"+block.items[pointer].id)!=undefined){
+                                if($("#"+block.id).find("#"+block.items[pointer].id)[0]!=undefined)
+                                    if(block["order"]=="desc")
+                                        element.prepend($("#"+block.id).find("#"+block.items[pointer].id)[0])
+                                    else
+                                        element.appendChild($("#"+block.id).find("#"+block.items[pointer].id)[0])
+
                                 pointer += 1
                             }
                             

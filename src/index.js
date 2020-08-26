@@ -2,7 +2,7 @@ import Vue from "vue"
 import VueRouter from 'vue-router'
 //import Core from './core/Core.js'
 import core from './core/Vue_adapter_core.js'
-
+import './css/style.css'
 //import component from './component.vue'
 
 import App from './App.vue'

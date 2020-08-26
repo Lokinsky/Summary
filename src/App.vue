@@ -1,5 +1,7 @@
 <template>
+
 <div id="main-container">
+    
     <h3>Главная страница</h3>
     <router-link to="/summary"><h5>• Резюме</h5></router-link>
 

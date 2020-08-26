@@ -11,12 +11,12 @@ new Object({
             "items":[
                 {
                     "id":"item-row-1",
-                    "width":"300",
+                    "width":"290",
                     //"height":"700",
                 },
                 {
                     "id":"item-row-2",
-                    "width":"345",
+                    "width":"360",
                     //"height":"700",
                 },
                 {

@@ -36,7 +36,7 @@ new Object({
                 {
                     "id":"item-row-1",
                     "width":"680",
-                    "width-size":"100vw"
+                    "width-size":"200%"
                     //"height":"358",
                 },
                 {
